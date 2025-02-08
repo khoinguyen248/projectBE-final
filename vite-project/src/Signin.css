@@ -1,0 +1,98 @@
+
+*{
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.input-container {
+    position: relative;
+    width: 100%;
+  }
+  
+  /* Styling for the input field */
+  .sign{
+    width: 500px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+  
+    border: 2px solid rgba(113, 82, 243, 1);
+    border-radius: 8px;
+    outline: none;
+    font-size: 16px;
+   
+  
+  }
+  .sign2{
+    width: 500px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+  
+    border: 2px solid red !important;
+    border-radius: 8px;
+    outline: none;
+    font-size: 16px;
+   
+  
+  }
+
+
+
+  
+  .sign:not(:placeholder-shown) + .title,
+  .sign:focus + .title {
+    top: 5px;
+    left: 20px;
+    margin-bottom: 10px;
+
+    font-size: 12px;
+    color: #a084eb;
+  }
+  
+
+  .sign2:not(:placeholder-shown) + .title2,
+  .sign2:focus + .title2 {
+    top: 5px;
+    left: 20px;
+    margin-bottom: 10px;
+
+    font-size: 12px;
+    color: red;
+  }
+  
+  .sign:not(:placeholder-shown),
+  .sign:focus {
+     
+      border: 2px solid rgba(113, 82, 243, 1);
+  }
+  
+  .title {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    font-family: 'lexend';
+   color: rgba(162, 161, 168, 1);
+    pointer-events: none;
+    transition: all 0.1s ease;
+  }
+    
+  .title2{
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    font-family: 'lexend';
+   color: rgba(162, 161, 168, 1);
+    pointer-events: none;
+    transition: all 0.1s ease;
+  }
+  .container{
+    display: flex;
+    align-items: center;
+    width: 100vw;
+    height: 99vh;
+    gap: 20px;
+  }
+
+  
+ 

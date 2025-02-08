@@ -1,0 +1,51 @@
+.menu {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    width: 90%;
+    height: 98%;
+    gap: 3px;
+    background-color: rgba(162, 161, 168, 0.05);
+    margin: auto;
+    align-items: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 10px;
+}
+
+.parent {
+    display: flex;
+    justify-content: center;
+    /* Căn giữa theo chiều ngang */
+    align-items: center;
+    /* Căn giữa theo chiều dọc */
+    height: 1024px;
+    width: 18%;
+    /* Đặt chiều cao phần tử cha (ví dụ: toàn bộ chiều cao viewport) */
+}
+
+button {
+    padding: 13px;
+    width: 90%;
+    display: flex;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: 'lexend';
+    font-weight: 350;
+    color: black;
+    background-color: transparent;
+    border: none;
+}
+
+button:hover {
+    background-color: rgba(162, 161, 168, 0.1);
+    color: rgba(113, 82, 243, 1);
+    font-weight: 350;
+}
+
+button.selected {
+    color: rgba(113, 82, 243, 1);
+    font-weight: 600;
+    border-left: 2px solid rgba(113, 82, 243, 1);
+    background-color: rgba(162, 161, 168, 0.05);
+}

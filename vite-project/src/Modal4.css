@@ -1,0 +1,23 @@
+select {
+    padding: 16px;
+    border-radius: 10px;
+    border: 1px solid rgba(162, 161, 168, 0.2);
+    cursor: pointer;
+}
+
+.chosin {
+    padding: 16px;
+    border-radius: 10px;
+    border: 1px solid rgba(162, 161, 168, 0.2);
+
+}
+
+.chosin:focus-visible {
+    outline: none;
+    border: 1px solid rgba(162, 161, 168, 0.2);
+}
+
+.select:focus-visible {
+    outline: none;
+    border: 1px solid rgba(162, 161, 168, 0.2);
+}
