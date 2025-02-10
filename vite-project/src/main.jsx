@@ -19,7 +19,7 @@ import Signin from './Signin.jsx'
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Navigate to="/signup" replace />,
+    element: <Navigate to="/signin" replace />,
   },
 
   {
