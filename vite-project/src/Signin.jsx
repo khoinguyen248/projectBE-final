@@ -42,7 +42,7 @@ const handleSubmit = async (e) => {
                 try {
                     const account = { email, password };
                     const response = await signin(account);
-                    console.log(response.data);
+                   
                     localStorage.setItem("token", response.data.token);
                     localStorage.setItem("email", response.data.account.email)
 
