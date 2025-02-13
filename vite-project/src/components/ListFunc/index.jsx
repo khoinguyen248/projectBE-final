@@ -23,7 +23,8 @@ export const Button = () => {
 
     const navigate = useNavigate()
     const { userId } = useParams()
-
+    const store = useContext(StoreContext)
+    const {currentPage ,setCurrentPage} = store
 
 
     const handleCheckbut = (int) => {
@@ -33,11 +34,18 @@ export const Button = () => {
 
     };
 
+    useEffect(() => {
+        setCurrentPage(localStorage.getItem('token'))
+    }, 
+[])
+
 
 
     return (
         <>
-            <div style={{
+
+        {
+            currentPage &&   <div style={{
                 width: '1500px',
                 display: 'flex',
                 justifyContent: 'space-between'
@@ -93,6 +101,8 @@ export const Button = () => {
 
                 <Outlet />
             </div>
+        }
+          
 
 
 

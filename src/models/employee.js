@@ -1,12 +1,43 @@
 import mongoose, { Schema } from "mongoose";
-// Schema for Employees
-const EmployeeSchema = new Schema({
-  name: { type: String, required: true },
-  email: { type: String, required: true },
-  phone: { type: String, required: true },
-  department: { type: String, required: true },
-  managerId: { type: Schema.Types.ObjectId, ref: "Manager", required: true },
-  accountId: { type: Schema.Types.ObjectId, ref: "Account", required: true },
+
+const AttendanceSchema = new Schema({
+  id: { type: String, required: true },
+  date: { type: String, required: true },
+  checkIn: { type: String, required: true },
+  checkOut: { type: String, required: true },
+  break: { type: String, required: true },
+  workingHours: { type: String, required: true },
+  status: { type: String, required: true },
 });
 
-export default Employee = mongoose.model("Employee", EmployeeSchema);
+const ProjectSchema = new Schema({
+  id: { type: String, required: true },
+  name: { type: String, required: true },
+  status: { type: String, required: true },
+  date: { type: String, required: true },
+  fdate: { type: String, required: true },
+});
+
+const EmployeeSchema = new Schema({
+  firstname: { type: String, required: true },
+  lastname: { type: String, required: true },
+  img: { type: String, required: true },
+  department: { type: String, required: true },
+  emnums: { type: Number, required: true },
+  designation: { type: String, required: true },
+  type: { type: String, required: true },
+  status: { type: String, required: true },
+  email: { type: String, required: true },
+  mobilenumber: { type: String, required: true },
+  address: { type: String, required: true },
+  marriedstatus: { type: String, required: true },
+  gender: { type: String, required: true },
+  city: { type: String, required: true },
+  state: { type: String, required: true },
+  zipcode: { type: String, required: true },
+  DOB: { type: String, required: true },
+  attendance: [AttendanceSchema],
+  projects: [ProjectSchema],
+});
+
+export default mongoose.model("Employee", EmployeeSchema);

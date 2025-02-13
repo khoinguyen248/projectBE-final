@@ -16,11 +16,14 @@ import AddEmployee from './components/AllEmployees/AddEmployee/AddEmployee.jsx'
 import Allemployeesmall from './components/Coms/Allemployeesmall.jsx'
 import Signin from './Signin.jsx'
 
-const router = createBrowserRouter([
+
+
+export const router = createBrowserRouter([
   {
     path: "/",
     element: <Navigate to="/signin" replace />,
   },
+  
 
   {
     path: "/signup",
@@ -29,6 +32,18 @@ const router = createBrowserRouter([
   {
     path: "/signin",
     element: <Signin />,
+  },
+
+  
+
+
+  {
+    path: "/forgetPass",
+    element: <Forget />
+  },
+  {
+    path: "/otp",
+    element: <Otp />
   },
 
   {
@@ -48,24 +63,16 @@ const router = createBrowserRouter([
      
     ]
   },
-
-
-  {
-    path: "/forgetPass",
-    element: <Forget />
-  },
-  {
-    path: "/otp",
-    element: <Otp />
-  },
   
 ]);
 
+
+
+
+// Chọn router dựa trên token
+
 createRoot(document.getElementById('root')).render(
   <StoreProvider>
-
     <RouterProvider router={router} />
-
   </StoreProvider>,
-)
-//Test
+);

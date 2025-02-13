@@ -67,7 +67,8 @@ const AllEmployee = () => {
               fontSize: '20px',
               fontWeight: '600',
               lineHeight: '30px',
-              textAlign: 'left'
+              textAlign: 'left',
+              fontFamily: 'lexend'
 
             }}>All employees</p>
             <p style={{

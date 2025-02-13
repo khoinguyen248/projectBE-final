@@ -4,15 +4,13 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Signup from './Signup'
 import Signin from './Signin'
+import { BrowserRouter } from 'react-router-dom'
 
 function App() {
  
 
   return (
-    <>
-      
-      
-    </>
+    <></>
   )
 }
 
