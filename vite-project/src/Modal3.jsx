@@ -2,12 +2,14 @@ import React from 'react'
 import { IoCloseSharp } from "react-icons/io5";
 import { useState } from 'react';
 import './Modal3.css'
-
-export const Modal3 = ({setArr, toogle, arr}) => {
-
+import { updateJobs } from './api';
 
 
-    const [jobType, setJobType] = useState('0');
+export const Modal3 = ({ setArr, toogle, arr }) => {
+
+
+
+  const [jobType, setJobType] = useState('0');
   const [department, setDepartment] = useState('0');
   const [time, setTime] = useState('0');
   const [salary, setSalary] = useState('');
@@ -25,7 +27,7 @@ export const Modal3 = ({setArr, toogle, arr}) => {
     id: Date.now().toString() // Tạo ID duy nhất dựa trên thời gian
   };
 
-  const handleAddProduct = () => {
+  const handleAddProduct = async () => {
     const updatedJobsData = arr?.map(category => {
       if (
         (jobType === '1' && category.type === 'Active Jobs') ||
@@ -37,50 +39,40 @@ export const Modal3 = ({setArr, toogle, arr}) => {
           jobs: [...category.jobs, newJob] // Thêm job mới vào danh sách jobs
         };
       }
-      return category;
-    });
-    setArr(updatedJobsData)
+      return category
   
+
+      
+    });
+
+    console.log(updatedJobsData)
+    setArr(updatedJobsData)
+
     toogle(false);
     alert('Job data updated successfully!');
-  
-    const url = 'https://6740972cd0b59228b7f099c5.mockapi.io/kooi';
-  
+
+    await updateJobs(updatedJobsData)
+
+
     
-    updatedJobsData.forEach(category => {
-      fetch(`${url}/${category.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(category)
-      })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Updated successfully:', data);
-      })
-      .catch(error => {
-        console.error('Error updating:', error);
-      });
-    });
   };
-  
 
 
 
-  
-  
 
-    return (
-           <div style={{
+
+
+
+  return (
+    <div style={{
       position: 'fixed',
       height: '1110px',
-      width:'100%',
-      
+      width: '100%',
+
       backgroundColor: 'rgba(0, 0, 0, 0.3)', backdropFilter: 'blur(5px)'
     }} >
 
-      <div style={{ width: '436px', height: 'fit-content', backgroundColor: 'white', borderRadius: '10px', margin: 'auto', marginTop: '100px', position: 'relative', display: 'flex', flexDirection: 'column', gap:'20px' }}>
+      <div style={{ width: '436px', height: 'fit-content', backgroundColor: 'white', borderRadius: '10px', margin: 'auto', marginTop: '100px', position: 'relative', display: 'flex', flexDirection: 'column', gap: '20px' }}>
         <p style={{ width: '80%', margin: 'auto' }}>Add new jobs</p>
 
         <select value={jobType} style={{ width: '80%', margin: 'auto' }} onChange={(e) => setJobType(e.target.value)}>
@@ -112,16 +104,16 @@ export const Modal3 = ({setArr, toogle, arr}) => {
         <input className='chosin' type="text" style={{ width: '80%', margin: 'auto' }} placeholder='Job name' value={jobName} onChange={(e) => setJobName(e.target.value)} />
 
         <input className='chosin' type="text" style={{ width: '80%', margin: 'auto' }} placeholder='Location' value={location} onChange={(e) => setLocation(e.target.value)} />
- 
 
 
-        <div style={{ width: '80%', margin: 'auto', display:'flex', justifyContent:'space-between', marginBottom:'20px' }}>
 
-        <button onClick={handleAddProduct} style={{width:'40%', display:'flex', alignItems:'center', justifyContent:'center', borderRadius:'10px', backgroundColor:'rgba(113, 82, 243, 1)', color:'white', }}>Add</button>
-        <button onClick={() => {toogle(false)}} style={{width:'40%', display:'flex', alignItems:'center', justifyContent:'center', backgroundColor:' white', color:'rgba(113, 82, 243, 1)',border:'1px solid grey', borderRadius:'10px'}}>Cancle</button>
+        <div style={{ width: '80%', margin: 'auto', display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
+
+          <button onClick={handleAddProduct} style={{ width: '40%', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '10px', backgroundColor: 'rgba(113, 82, 243, 1)', color: 'white', }}>Add</button>
+          <button onClick={() => { toogle(false) }} style={{ width: '40%', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: ' white', color: 'rgba(113, 82, 243, 1)', border: '1px solid grey', borderRadius: '10px' }}>Cancle</button>
         </div>
-        
+
       </div>
     </div>
-    )
+  )
 }

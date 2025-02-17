@@ -13,6 +13,7 @@ import { useContext } from 'react';
 import { StoreContext } from '../../store';
 import { useEffect } from 'react';
 import { Modal2 } from '../../Modal2';
+import { getAllemloyees } from '../../api';
 
 const AllEmployee = () => {
   const pages = [1, 2, 3, 4, 5]
@@ -34,8 +35,8 @@ const AllEmployee = () => {
   const fetchOne = async () => {
     try {
       setIsLoading(true)
-      const respone = await fetch('https://671c5ff22c842d92c382ba18.mockapi.io/mindxpro')
-      const data = await respone.json()
+      const respone = await getAllemloyees()
+      const data = await respone.data.employees
       setListWorkers(data)
       setIsLoading(false)
     }

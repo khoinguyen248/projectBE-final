@@ -40,4 +40,5 @@ const EmployeeSchema = new Schema({
   projects: [ProjectSchema],
 });
 
-export default mongoose.model("Employee", EmployeeSchema);
+ const  employee = mongoose.model("employee", EmployeeSchema);
+export default employee
