@@ -6,5 +6,5 @@ const employeeRouter = Router()
 
 
 employeeRouter.get("/allemployees", employeeController.sendEmployee)
-
+employeeRouter.post("/addemployee", employeeController.addEmployee)
 export default employeeRouter

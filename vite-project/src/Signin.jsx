@@ -19,7 +19,7 @@ const Signin = () => {
     const [pass, setPass] = useState(true)
     const [report, setReport] = useState(true)
     const navigate = useNavigate()
-
+    const [errstr, setErrstr] = useState('')
 
     const [email, setMail] = useState("")
     
@@ -43,7 +43,7 @@ const handleSubmit = async (e) => {
                     const account = { email, password };
                     const response = await signin(account);
                    
-                    localStorage.setItem("token", response.data.token);
+                    localStorage.setItem("tokenBackend", response.data.token);
                     localStorage.setItem("email", response.data.account.email)
 
                     navigate("/Homepage")
@@ -52,6 +52,7 @@ const handleSubmit = async (e) => {
                 } catch (err) {
                     console.error("Signin failed:", err.response?.data || err.message);
                     setReport(false)
+                    setErrstr(err.response?.message)
                 }
                 setCheckPassword(false);
             }
@@ -151,7 +152,7 @@ const handleSubmit = async (e) => {
                                 lineHeight: '24px',
                                 fontWeight: '300px',
                                 color: 'red'
-                            }}>Please enter your email again</p>
+                            }}>{errstr}, Please enter your email again</p>
                         </div>
 
 
@@ -172,7 +173,7 @@ const handleSubmit = async (e) => {
                                 lineHeight: '24px',
                                 fontWeight: '300px',
                                 color: 'red'
-                            }}>Wrong password ! Please re-enter</p>
+                            }}>{errstr}, Please re-enter</p>
                         </div> </>}
                         <div style={{
                         display: 'flex',

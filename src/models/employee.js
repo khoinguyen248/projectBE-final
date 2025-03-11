@@ -21,7 +21,9 @@ const ProjectSchema = new Schema({
 const EmployeeSchema = new Schema({
   firstname: { type: String, required: true },
   lastname: { type: String, required: true },
-  img: { type: String, required: true },
+  name: { type: String, required: true },
+
+  img: { type: String },
   department: { type: String, required: true },
   emnums: { type: Number, required: true },
   designation: { type: String, required: true },
@@ -40,5 +42,5 @@ const EmployeeSchema = new Schema({
   projects: [ProjectSchema],
 });
 
- const  employee = mongoose.model("employee", EmployeeSchema);
-export default employee
+ const  Employee = mongoose.model("employee", EmployeeSchema);
+export default Employee

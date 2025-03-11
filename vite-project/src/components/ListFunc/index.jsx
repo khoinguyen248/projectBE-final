@@ -25,7 +25,7 @@ export const Button = () => {
     const { userId } = useParams()
     const store = useContext(StoreContext)
     const {currentPage ,setCurrentPage} = store
-
+    
 
     const handleCheckbut = (int) => {
 
@@ -35,7 +35,7 @@ export const Button = () => {
     };
 
     useEffect(() => {
-        setCurrentPage(localStorage.getItem('token'))
+        setCurrentPage(localStorage.getItem('tokenBackend'))
     }, 
 [])
 
@@ -45,7 +45,7 @@ export const Button = () => {
         <>
 
         {
-            currentPage &&   <div style={{
+            currentPage ?  <div style={{
                 width: '1500px',
                 display: 'flex',
                 justifyContent: 'space-between'
@@ -100,7 +100,9 @@ export const Button = () => {
                 </div>}
 
                 <Outlet />
-            </div>
+            </div> : <>
+            <p>HEM VÔ ĐƯỢC NHE</p>
+            </>
         }
           
 
