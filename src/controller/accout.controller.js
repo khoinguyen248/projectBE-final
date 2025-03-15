@@ -5,8 +5,18 @@ import jwt from 'jsonwebtoken'
 const accountController =  {
       signupMethod : async(req, res) => {
         const { email, password, role} = req.body
-        
 
+        if(!email || !password){
+          return res.status(401).send({
+            message: "Missing Required information !"
+        })
+        }
+        const accountchecked = await accountModel.findOne({email})
+        if(accountchecked){
+          return res.status(401).send({
+              message: "Email already existed !"
+          })
+      }
         const mixedPass = await bcrypt.hash(password, 10)
         const newaccount = new  accountModel({
         
@@ -34,13 +44,19 @@ const accountController =  {
         
         console.log(email, password)
         const accountchecked = await accountModel.findOne({email})
+
+        if(!accountchecked){
+          return res.status(401).send({
+              message: "Missing information, "
+          })
+      }
         console.log(accountchecked)
 
         const checkSync = await bcrypt.compare(password, accountchecked.password)
 
         if(!checkSync){
             return res.status(401).send({
-                message: "Wrong password, please enter again !"
+                message: "Wrong information, "
             })
         }
 

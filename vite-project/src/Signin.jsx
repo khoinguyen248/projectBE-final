@@ -52,7 +52,7 @@ const handleSubmit = async (e) => {
                 } catch (err) {
                     console.error("Signin failed:", err.response?.data || err.message);
                     setReport(false)
-                    setErrstr(err.response?.message)
+                    setErrstr(err.response?.data.message)
                 }
                 setCheckPassword(false);
             }
@@ -152,7 +152,7 @@ const handleSubmit = async (e) => {
                                 lineHeight: '24px',
                                 fontWeight: '300px',
                                 color: 'red'
-                            }}>{errstr}, Please enter your email again</p>
+                            }}>{errstr}Please enter again</p>
                         </div>
 
 
@@ -173,7 +173,7 @@ const handleSubmit = async (e) => {
                                 lineHeight: '24px',
                                 fontWeight: '300px',
                                 color: 'red'
-                            }}>{errstr}, Please re-enter</p>
+                            }}>{errstr}Please re-enter</p>
                         </div> </>}
                         <div style={{
                         display: 'flex',

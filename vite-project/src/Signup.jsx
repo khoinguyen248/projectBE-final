@@ -41,7 +41,7 @@ const Signup = () => {
             console.error("Signup failed:", err.response?.data || err.message);
 
             setMissInf(false)
-            setErrstr(err.message)
+            setErrstr(err.response?.data.message)
         }
     };
 
@@ -195,7 +195,7 @@ const Signup = () => {
                                 lineHeight: '24px',
                                 fontWeight: '300px',
                                 color: 'red'
-                            }}>{errstr}, Please type all required information</p>
+                            }}>{errstr}</p>
                     </div>
 
 
@@ -217,7 +217,7 @@ const Signup = () => {
                                 lineHeight: '24px',
                                 fontWeight: '300px',
                                 color: 'red'
-                            }}>{errstr}, Please type all required information</p>
+                            }}>{errstr}</p>
                     </div>
 
                     <select defaultValue={"CUSTOMER"} value={role} onChange={(e) => setRole(e.target.value)} style={{ marginTop: '20px' }}>
@@ -236,7 +236,7 @@ const Signup = () => {
                     <button style={{
                         width: '500px',
                         padding: '20px',
-                        marginTop: '30px',
+                        marginTop: '30px', 
                         borderRadius: '10px',
                         backgroundColor: 'rgba(113, 82, 243, 1)',
                         color: 'white',
