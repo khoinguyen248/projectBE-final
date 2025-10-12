@@ -7,4 +7,5 @@ const employeeRouter = Router()
 
 employeeRouter.get("/allemployees", employeeController.sendEmployee)
 employeeRouter.post("/addemployee", employeeController.addEmployee)
+employeeRouter.delete("/deleteUser", employeeController.deleteEmployee)
 export default employeeRouter

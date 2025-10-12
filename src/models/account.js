@@ -19,8 +19,8 @@ const accoutSchema = new mongoose.Schema({
      },
      role:{
         type: String,
-        enums: ["MANAGER", "CUSTOMER", "EMPLOYEE"],
-        default: "CUSTOMER"
+        enums: ["MANAGER",  "EMPLOYEE"],
+        default: "EMPLOYEE"
      }
 })
 
