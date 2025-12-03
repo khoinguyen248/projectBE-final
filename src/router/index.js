@@ -17,4 +17,6 @@ Root.use("/schedules", scheduleRouter); // <--- MỚI THÊM
 Root.use("/salary", salaryRouter);
 Root.use("/timesheet", timesheetRouter);
 Root.use("/notifications", notificationRouter);
+Root.use("/me", employeeRouter);
+
 export default Root

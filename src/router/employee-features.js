@@ -1,8 +1,5 @@
 import express from 'express';
-// Import Middleware bảo vệ
-import verifyToken from '../middleware/auth.js'; 
-
-// SỬA DÒNG NÀY: Trỏ đúng vào file "features" đã tạo
+import verifyToken from '../middleware/auth.js'; // Middleware chặn cửa
 import { 
     getMyProfile, 
     getMyJobs, 
@@ -12,10 +9,10 @@ import {
 
 const router = express.Router();
 
-// Kích hoạt bảo mật (Yêu cầu Token)
+// BẮT BUỘC: Phải có Token mới đi qua được dòng này
 router.use(verifyToken);
 
-// Định nghĩa các API
+// Các đường dẫn (API)
 router.get('/profile', getMyProfile);   
 router.get('/jobs', getMyJobs);         
 router.get('/schedule', getMySchedule); 
