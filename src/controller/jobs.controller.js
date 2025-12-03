@@ -1,12 +1,14 @@
 import Job from '../models/jobs.js';
-import User from '../models/account.js'; // Để check xem nhân viên có tồn tại ko
+import User from '../models/account.js';
 
-// 1. Tạo công việc mới (Giao việc)
+// 1. Tạo công việc mới
 export const createJob = async (req, res) => {
     try {
         const { jobName, description, deadline, employeeId } = req.body;
+        
+        // MỚI: Lấy ID Admin đang giao việc
+        const adminId = req.user.id;
 
-        // Check xem nhân viên được gán có tồn tại không
         const emp = await User.findById(employeeId);
         if (!emp) {
             return res.status(404).json({ message: "Nhân viên không tồn tại!" });
@@ -17,7 +19,8 @@ export const createJob = async (req, res) => {
             description,
             deadline,
             employeeId,
-            status: 'Pending'
+            status: 'Pending',
+            assignedBy: adminId // <-- Lưu vết Admin nào đã giao
         });
 
         res.status(201).json({

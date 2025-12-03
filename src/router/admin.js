@@ -1,4 +1,6 @@
 import express from 'express';
+import verifyToken from '../middleware/auth.js'; // <--- Import vào
+import checkAdmin from '../middleware/checkAdmin.js';
 import { 
     getAllEmployees, 
     getEmployeeDetail, 
@@ -8,10 +10,11 @@ import {
 
 const router = express.Router();
 
-// Định nghĩa các đường dẫn
-router.get('/employees', getAllEmployees);       // Xem tất cả
-router.get('/employees/:id', getEmployeeDetail); // Xem chi tiết 1 người
-router.put('/employees/:id', updateEmployee);    // Sửa
-router.delete('/employees/:id', deleteEmployee); // Xóa (Khóa)
+router.use(verifyToken, checkAdmin);
+
+router.get('/employees', getAllEmployees);
+router.get('/employees/:id', getEmployeeDetail);
+router.put('/employees/:id', updateEmployee);
+router.delete('/employees/:id', deleteEmployee);
 
 export default router;

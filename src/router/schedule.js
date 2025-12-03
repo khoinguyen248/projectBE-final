@@ -1,4 +1,6 @@
 import express from 'express';
+import verifyToken from '../middleware/auth.js'; // <--- Import vào
+import checkAdmin from '../middleware/checkAdmin.js';
 import { 
     createSchedule, 
     getAllSchedules, 
@@ -8,9 +10,11 @@ import {
 
 const router = express.Router();
 
-router.post('/', createSchedule);              // Tạo lịch
-router.get('/', getAllSchedules);              // Xem tất cả
-router.put('/:id/assign', addEmployeeToSchedule); // Gán thêm NV vào lịch
-router.delete('/:id', deleteSchedule);         // Xóa lịch
+router.use(verifyToken, checkAdmin);
+
+router.post('/', createSchedule);
+router.get('/', getAllSchedules);
+router.put('/:id/assign', addEmployeeToSchedule);
+router.delete('/:id', deleteSchedule);
 
 export default router;

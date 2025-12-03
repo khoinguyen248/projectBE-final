@@ -4,15 +4,18 @@ import User from '../models/account.js';
 // 1. Tạo Lịch làm việc mới
 export const createSchedule = async (req, res) => {
     try {
-        // attendees là mảng ID các nhân viên: ["id1", "id2"]
-        const { workDate, shiftName, startTime, endTime, attendees, adminId } = req.body;
+        // CŨ: const { ..., adminId } = req.body;
+        const { workDate, shiftName, startTime, endTime, attendees } = req.body;
+        
+        // MỚI: Lấy ID Admin từ Token (An toàn tuyệt đối)
+        const adminId = req.user.id; 
 
         const newSchedule = await Schedule.create({
             workDate,
             shiftName,
             startTime,
             endTime,
-            createdBy: adminId, // ID của Admin đang login (FE sẽ gửi lên)
+            createdBy: adminId, // <-- Tự điền ID Admin vào đây
             attendees: attendees || [] 
         });
 

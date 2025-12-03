@@ -1,5 +1,6 @@
 import express from 'express';
-import verifyToken from '../middleware/auth.js'; // Import Middleware
+import verifyToken from '../middleware/auth.js'; 
+import checkAdmin from '../middleware/checkAdmin.js'; // <--- Import thêm cái này
 import { 
     checkIn, 
     checkOut, 
@@ -9,14 +10,15 @@ import {
 
 const router = express.Router();
 
-// --- ÁP DỤNG BẢO MẬT ---
-// Ai có Token mới được chấm công
-router.post('/check-in', verifyToken, checkIn);
-router.post('/check-out', verifyToken, checkOut);
+// 1. Ai cũng phải có Token mới được vào
+router.use(verifyToken);
 
-// API xem danh sách & báo cáo (Thường dành cho Admin hoặc Employee xem lại)
-// Tạm thời cũng bảo vệ luôn cho chắc
-router.get('/', verifyToken, getTimesheets);         
-router.get('/report', verifyToken, getMonthlyReport); 
+// 2. Chấm công: Ai cũng làm được (Employee + Admin) -> KHÔNG CẦN checkAdmin
+router.post('/check-in', checkIn);
+router.post('/check-out', checkOut);
+
+// 3. Xem báo cáo: CHỈ ADMIN MỚI ĐƯỢC XEM -> Gắn checkAdmin vào đây
+router.get('/', checkAdmin, getTimesheets);         
+router.get('/report', checkAdmin, getMonthlyReport); 
 
 export default router;
