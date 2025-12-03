@@ -4,16 +4,59 @@ import User from '../models/account.js';
 // 1. Lấy danh sách toàn bộ nhân viên
 export const getAllEmployees = async (req, res) => {
     try {
-        // Tìm tất cả User có role là Employee
-        // .select('-password') nghĩa là: Lấy hết trừ cột password ra (để bảo mật)
-        const list = await Employee.find().select('-password');
-        
+        // 1. Lấy tham số từ URL
+        const { keyword, department, page = 1, limit = 10, sortBy = 'createdAt', order = 'desc' } = req.query;
+
+        // 2. Khởi tạo bộ lọc cơ bản
+        // Luôn luôn lọc role là Employee để không lẫn Admin vào
+        let filter = { role: 'Employee' };
+
+        // 3. Xử lý tìm kiếm từ khóa (Nếu có gửi lên)
+        if (keyword) {
+            const regex = new RegExp(keyword, 'i'); // 'i' là không phân biệt hoa thường
+            
+            // Thêm điều kiện $or vào bộ lọc
+            filter.$or = [
+                { fname: { $regex: regex } },
+                { lname: { $regex: regex } },
+                { email: { $regex: regex } },
+                // Thêm tìm theo SĐT nếu muốn
+                { phone: { $regex: regex } } 
+            ];
+        }
+
+        // 4. Xử lý lọc theo phòng ban (Nếu có gửi lên)
+        if (department) {
+            filter.department = department;
+        }
+
+        // --- DEBUG: In ra để xem bộ lọc có đúng ý không ---
+        console.log("Filter đang áp dụng:", JSON.stringify(filter, null, 2));
+
+        // 5. Xử lý Sắp xếp
+        const sortOptions = {};
+        sortOptions[sortBy] = order === 'asc' ? 1 : -1;
+
+        // 6. TRUY VẤN DB (QUAN TRỌNG NHẤT: Phải truyền biến filter vào đây)
+        const list = await Employee.find(filter) 
+            .select('-password')      // Bỏ mật khẩu
+            .sort(sortOptions)        // Sắp xếp
+            .skip((page - 1) * limit) // Phân trang
+            .limit(parseInt(limit));  // Giới hạn số lượng
+
+        // Đếm tổng số lượng (để Frontend biết đường chia trang)
+        const total = await Employee.countDocuments(filter);
+
         res.status(200).json({
             message: "Lấy danh sách thành công",
             count: list.length,
+            totalDatabase: total,
+            currentPage: parseInt(page),
             data: list
         });
+
     } catch (error) {
+        console.error(error);
         res.status(500).json({ message: error.message });
     }
 };
