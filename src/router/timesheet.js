@@ -1,4 +1,5 @@
 import express from 'express';
+import verifyToken from '../middleware/auth.js'; // Import Middleware
 import { 
     checkIn, 
     checkOut, 
@@ -8,9 +9,14 @@ import {
 
 const router = express.Router();
 
-router.post('/check-in', checkIn);
-router.post('/check-out', checkOut);
-router.get('/', getTimesheets);         // Xem lịch sử chi tiết
-router.get('/report', getMonthlyReport); // Xem tổng hợp cộng dồn (Quan trọng)
+// --- ÁP DỤNG BẢO MẬT ---
+// Ai có Token mới được chấm công
+router.post('/check-in', verifyToken, checkIn);
+router.post('/check-out', verifyToken, checkOut);
+
+// API xem danh sách & báo cáo (Thường dành cho Admin hoặc Employee xem lại)
+// Tạm thời cũng bảo vệ luôn cho chắc
+router.get('/', verifyToken, getTimesheets);         
+router.get('/report', verifyToken, getMonthlyReport); 
 
 export default router;
