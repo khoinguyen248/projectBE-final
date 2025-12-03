@@ -1,11 +1,11 @@
-import { Router } from "express";
-import accountController from "../controller/accout.controller.js";
-import verifyToken from "../middleware/verifytoken.js";
+import express from 'express';
+// Import đúng tên hàm đã export bên controller
+import { register, login } from '../controller/account.controller.js'; 
 
-const accountRouter = Router()
+const router = express.Router();
 
-accountRouter.post("/signup", accountController.signupMethod)
-accountRouter.post("/signin", accountController.loginMethod)
-accountRouter.get("/profile", verifyToken, accountController.getInforMethod)
-accountRouter.post("/employee",verifyToken, accountController.createEmployee)
-export default accountRouter
+// Định nghĩa các đường dẫn
+router.post('/register', register);
+router.post('/login', login);
+
+export default router;

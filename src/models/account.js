@@ -1,28 +1,22 @@
-import mongoose, {Schema} from "mongoose";
+import mongoose from 'mongoose';
 
-const accoutSchema = new mongoose.Schema({
-     email:{
-        type: String,
-        unique: true,
-        required: true
-     },
+const baseOptions = {
+    discriminatorKey: 'role', // Khóa để phân biệt Admin/Employee
+    collection: 'users',      // Lưu chung vào 1 bảng users
+    timestamps: true
+};
 
-     password:{
-        type: String,
-        required: true
+const UserSchema = new mongoose.Schema({
+    fname: { type: String, required: true },
+    lname: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    phone: { type: String },
+    dob: { type: Date },
+    sex: { type: String, enum: ['Male', 'Female', 'Other'] },
+    status: { type: String, default: 'Active' }
+}, baseOptions);
 
-     },
-     isAcitive: {
-        type: Boolean,
-        enums: [true, false],
-        default: true
-     },
-     role:{
-        type: String,
-        enums: ["MANAGER",  "EMPLOYEE"],
-        default: "EMPLOYEE"
-     }
-})
+const User = mongoose.model('User', UserSchema);
 
-const accountModel = mongoose.model("Account", accoutSchema)
-export default accountModel
+export default User;
