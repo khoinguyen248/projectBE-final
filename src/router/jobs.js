@@ -1,10 +1,11 @@
-import { Router } from "express";
-import jobsController from "../controller/jobs.controller.js";
+import express from 'express';
+import { createJob, getAllJobs, updateJob, deleteJob } from '../controller/jobs.controller.js';
 
+const router = express.Router();
 
-const jobsRouter = Router()
+router.post('/', createJob);       // Tạo job
+router.get('/', getAllJobs);       // Xem list
+router.put('/:id', updateJob);     // Sửa
+router.delete('/:id', deleteJob);  // Xóa
 
-jobsRouter.get("/alljobs", jobsController.getjobs)
-jobsRouter.post("/updateJobs", jobsController.updatejobs)
-
-export default jobsRouter
+export default router;

@@ -1,23 +1,28 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose from 'mongoose';
 
+const JobSchema = new mongoose.Schema({
+    jobName: { type: String, required: true },
+    description: { type: String },
+    startDate: { type: Date, default: Date.now },
+    deadline: { type: Date, required: true },
+    status: { 
+        type: String, 
+        enum: ['Pending', 'In Progress', 'Done', 'Late'], 
+        default: 'Pending' 
+    },
+    // Quan trọng: Link tới bảng User (Employee)
+    employeeId: { 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'User',
+        required: true 
+    },
+    // Lưu vết Admin nào giao việc này (Optional)
+    assignedBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }
+}, { timestamps: true });
 
-const jobsSchema = new Schema({
-  name: {type: String, required: true},
-  spec: {type: String, required: true},
-  time: {type: String, required: true},
- place: {type: String, required: true},
-  location: {type: String, required: true},
-  pricetag: {type: String },
-  id: {type: Number}
-})
+const Job = mongoose.model('Job', JobSchema);
 
-
-const jobslistSchema = new Schema({
-    type: {type: String, required: true},
-    jobs: [jobsSchema],
-    khoi: {type: String, required: true},
-    id: {type: String}
-})
-
-const jobslistModel = mongoose.model("jobs", jobslistSchema)
-export default jobslistModel
+export default Job;
