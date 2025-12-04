@@ -1,5 +1,6 @@
 import Employee from '../models/employee.js';
 import User from '../models/account.js';
+import { learnFromResignedEmployee } from './predict.controller.js';
 
 // 1. Lấy danh sách toàn bộ nhân viên
 export const getAllEmployees = async (req, res) => {
@@ -100,12 +101,18 @@ export const updateEmployee = async (req, res) => {
 export const deleteEmployee = async (req, res) => {
     try {
         const { id } = req.params;
+
+        // --- BƯỚC MỚI: HỌC TRƯỚC KHI XÓA ---
+        // Gọi hàm này để máy lưu lại thông tin: "À, ông này chỉ số thế này là sắp nghỉ đấy"
+        await learnFromResignedEmployee(id); 
+        // -----------------------------------
         
+        // Sau đó mới thực hiện logic xóa (khóa) như cũ
         const deletedEmp = await User.findByIdAndUpdate(id, { status: 'Inactive' }, { new: true });
 
         if (!deletedEmp) return res.status(404).json({ message: "Không tìm thấy nhân viên" });
 
-        res.status(200).json({ message: "Đã khóa tài khoản nhân viên này!" });
+        res.status(200).json({ message: "Đã khóa tài khoản và lưu dữ liệu để huấn luyện AI!" });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
